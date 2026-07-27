@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Prediction Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        /* Gradient Background */
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+        }
+
+        .bg-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen p-5">
+
+    <!-- Navbar -->
+   <!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full p-4 bg-black bg-opacity-40 shadow-lg z-50">
+    <div class="flex items-center justify-between mx-auto max-w-7xl">
+        <div class="flex items-center text-2xl font-semibold">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/016/227/291/small/bull-with-chart-bar-logo-design-finance-logo-design-free-vector.jpg" 
+                 alt="Stock Market Logo" 
+                 class="h-12 rounded-lg">
+        </div>
+        <div class="flex space-x-6">
+            <a href="/home" class="hover:text-yellow-400">🏠 Home</a>
+            <a href="/admin" class="hover:text-yellow-400">🔧 Admin</a>
+            <a href="/about" class="hover:text-yellow-400">ℹ️ About</a>
+            <a href="/predict" class="hover:text-yellow-400">📈 Get Insights</a>
+            <a href="/message" class="hover:text-yellow-400">💬 Chat with AI</a>
+            <a href="/logout" class="hover:text-yellow-400">🚪 Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Add padding to body so content doesn't overlap with navbar -->
+<body class="flex flex-col items-center min-h-screen p-5 pt-20">
+
+    <!-- Rest of your content -->
+    
+</body>
+
+  <!-- Header -->
+<h1 class="text-3xl font-bold text-center text-white mt-20 mb-8">📈 Stock Market Insights</h1>
+
+<!-- Search Form -->
+<div class="bg-card shadow-md w-full max-w-md mt-6">
+    <form action="/predict" method="GET" class="flex">
+        <input type="text" name="symbol" placeholder="Enter Stock Symbol (e.g., TSLA, AAPL)" 
+            class="p-3 border rounded-l-lg flex-grow focus:outline-none">
+        <button type="submit" class="bg-primary text-white p-3 rounded-r-lg hover:bg-secondary transition-all">🔍 Search</button>
+    </form>
+</div>
+
+
+    <!-- Error Message -->
+    <% if (error) { %>
+        <p class="text-red-500 text-center mt-4"><%= error %></p>
+    <% } %>
+
+    <!-- Stock Data Display -->
+    <% if (stockData) { %>
+        <div class="mt-6 w-full max-w-4xl bg-card shadow-lg">
+            <h2 class="text-xl font-semibold text-center text-white">
+                📊 Stock: <%= stockData.symbol %> - <%= stockData.name || 'Unknown' %>
+            </h2>
+            <p class="text-center text-gray-300">Market Currency: <%= stockData.financialCurrency || 'N/A' %></p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                <% if (details && details.length) { %>
+                    <% details.forEach(detail => { %>
+                        <div class="tooltip-container bg-white/10 p-3 rounded-md shadow-sm flex justify-between items-center text-white">
+                            <strong><%= detail.label %>:</strong>
+                            <span><%= stockData[detail.key] || 'N/A' %></span>
+                            <span class="tooltip"><%= detail.tooltip || '' %></span>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-span-full text-center text-gray-300">No stock details available.</div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+
+</body>
+</html>

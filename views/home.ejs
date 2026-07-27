@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 Stock Predictor</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            background: url('https://static.vecteezy.com/system/resources/previews/004/940/875/original/artificial-intelligence-machine-learning-ai-data-deep-learning-for-future-technology-artwork-mining-isometric-neural-network-machine-programming-and-responsive-web-banner-illustration-vector.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        body {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.navbar a {
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+    color: yellow;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: yellow;
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar a:hover::after {
+    transform: scaleX(1);
+}
+
+        .ticker {
+            white-space: nowrap;
+            overflow: hidden;
+            background: rgba(5, 250, 229, 0.5);
+            padding: 10px 0;
+        }
+      .ticker-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: tickerMove 15s linear infinite;
+}
+        
+        @keyframes tickerMove {
+    from { transform: translateX(0%); }  /* Change from 100% to 0% */
+    to { transform: translateX(-100%); }
+}
+        
+.logo-container {
+    position: fixed;
+    right: 200px; /* Increased distance from the right */
+    top: 30%;
+    transform: translateY(-50%);
+    width: 200px; /* Adjusted for better spacing */
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotateRing 20s linear infinite;
+}
+
+
+.ring img {
+    position: absolute;
+    width: 60px; /* Smaller images for spacing */
+    height: 60px;
+    border-radius: 50%;
+    transition: transform 0.5s;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="w-full p-4 navbar">
+        <div class="flex items-center justify-between mx-auto max-w-7xl">
+            <div class="flex items-center text-2xl font-semibold">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/016/227/291/small/bull-with-chart-bar-logo-design-finance-logo-design-free-vector.jpg" alt="Stock Market Logo" class="h-12 rounded-lg">
+            </div>
+            <div class="flex space-x-6">
+                <a href="/home" class="hover:text-yellow-400">🏠 Home</a>
+                <a href="/admin" class="hover:text-yellow-400">🔧 Admin</a>
+                <a href="/about" class="hover:text-yellow-400"> ℹ️About</a>
+                <a href="/predict" class="hover:text-yellow-400">📈Get Insights</a>
+                <a href="/message" class="hover:text-yellow-400">💬 Chat with AI</a>
+                <a href="/logout" class="hover:text-yellow-400">🚪 Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Stock Market Ticker -->
+    <div class="ticker">
+        <div class="ticker-content text-lg font-bold text-yellow-400">
+            Live Stock Market Updates 📈 AAPL: $204.60 ▲ +2.43% | 📉 TSLA: $250.74 ▲ +5.37% | 📈 MSFT: $374.39 ▲ +2.06% | 📉 AMZN: $180.60 ▲ +4.28%
+        </div>
+    </div>
+   <!-- Circular Rotating Logos on Right -->
+<div class="logo-container">
+    <div class="ring" id="ring">
+        <img src="https://substackcdn.com/image/fetch/$s_!G1lk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8ed3d547-94ff-48e1-9f20-8c14a7030a02_2000x2000.jpeg" alt="Apple">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png" alt="Microsoft">
+        <img src="https://static.vecteezy.com/system/resources/previews/020/336/484/non_2x/tesla-logo-tesla-icon-transparent-png-free-vector.jpg" alt="Tesla">
+        <img src="https://img.freepik.com/premium-vector/google-logo_1273375-1572.jpg?semt=ais_hybrid&w=740&q=80" alt="Google">
+        <img src="https://www.citypng.com/public/uploads/preview/square-amazon-app-logo-icon-701751695133387c8mdvsejvz.png" alt="Amazon">
+    </div>
+</div>
+
+    <div class="mt-16 text-center">
+        <h1 class="mb-4 text-6xl font-extrabold text-white drop-shadow-lg">Welcome, <span class="text-yellow-300">Trader!</span> 🚀</h1>
+        <p class="mb-6 text-xl text-gray-300">Track and predict stock prices in real-time! 📊</p>
+        
+        </a>
+    </div>
+    
+    <style>
+        
+        .glow-button {
+            position: fixed;
+            animation: float 2s ease-in-out infinite;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ffcc00, #ff6600);
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+            transition: all 0.3s ease-in-out;
+            animation: glow 1.5s infinite alternate;
+        }
+    
+        .glow-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 165, 0, 1);
+        }
+    
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(255, 165, 0, 1);
+            }
+        }
+    </style>
+    
+    <!-- Get Started Button -->
+    <a href="/start" class="glow-button">🚀 Get Started</a>
+    
+    
+    <!-- Trending Stocks -->
+    <div class="mt-10 text-center">
+        <h2 class="text-3xl font-bold text-white">🔥 Trending Stocks</h2>
+        <div class="flex justify-center space-x-6 mt-4">
+            <div class="glass-card">
+                <h3 class="text-xl text-yellow-300">AAPL</h3>
+                <p class="text-green-400">+3.2%</p>
+            </div>
+            <div class="glass-card">
+                <h3 class="text-xl text-yellow-300">TSLA</h3>
+                <p class="text-red-400">-2.1%</p>
+            </div>
+            <div class="glass-card">
+                <h3 class="text-xl text-yellow-300">GOOGL</h3>
+                <p class="text-green-400">+1.8%</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const ring = document.getElementById("ring");
+        const images = ring.getElementsByTagName("img");
+        const total = images.length;
+        let angle = 0;
+
+        function positionImages() {
+    for (let i = 0; i < total; i++) {
+        let theta = ((Math.PI * 2) / total) * i + angle;
+        let x = 120 + 130 * Math.cos(theta); // Adjusted x spacing
+        let y = 120 + 130 * Math.sin(theta);
+        images[i].style.transform = `translate(${x - 30}px, ${y - 30}px)`; // Center alignment
+    }
+}
+
+        
+        function rotateRing() {
+            angle += Math.PI / 120; // Slower rotation for smoother effect
+            positionImages();
+            requestAnimationFrame(rotateRing);
+        }
+        
+        positionImages();
+        rotateRing();
+    </script>
+    <section class="bg-gray-900 text-white py-10 px-6 rounded-lg shadow-lg mx-auto max-w-4xl mt-10">
+        <h2 class="text-3xl font-bold text-center mb-4">📈 What Is the Stock Market and How Does It Work?</h2>
+        
+        <p class="text-lg leading-relaxed text-gray-300 text-center">
+            The stock market is made up of investors buying, selling, and trading shares of companies, reflecting these firms' collective value and performance.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-yellow-300">🔹 Definition</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            The stock market as a whole is an exchange mechanism that helps investors buy and sell shares in publicly traded companies. Though you can visit the New York Stock Exchange (NYSE) and offices of the NASDAQ, these are just components in a broader marketplace.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-yellow-300">🔹 How It Works</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            Trades are conducted mostly through electronic means between participants who are remote from each other. The mechanism is an excellent means for businesses to raise capital from investors. Additionally, analysts closely examine its traded prices for signals of economic strength or weakness.
+        </p>
+    </section>
+    <section class="bg-gray-900 text-white py-10 px-6 rounded-lg shadow-lg mx-auto max-w-4xl mt-10">
+        <h2 class="text-3xl font-bold text-center mb-4 text-yellow-300">📊 How Does the Stock Market Work?</h2>
+        
+        <h3 class="text-2xl font-semibold mt-6 text-blue-300">📝 The Stock Market Defined</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            The stock market is a vast, complex network of trading activities where shares of companies are bought and sold, protected by laws against fraud and other unfair trading practices. 
+            It plays a crucial role in modern economies by enabling money to move between investors and companies.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-blue-300">🔍 Understanding Its Components</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            Sometimes the best way to see how something works is to look at its parts. In that light, let's review the major elements of the stock market, 
+            from the companies selling shares to exchanges and the indexes that give us a snapshot of the stock market's health.
+        </p>
+    </section>
+    <section class="bg-gray-900 text-white py-10 px-6 rounded-lg shadow-lg mx-auto max-w-4xl mt-10">
+        <h2 class="text-3xl font-bold text-center mb-4 text-yellow-300">🏛️ What Is a Stock Exchange?</h2>
+        
+        <p class="text-lg leading-relaxed text-gray-300">
+            Once a company goes public, its stocks can be traded freely on the stock market. This means that investors can buy and sell shares among themselves. 
+            This is the secondary market for stocks, and most trading is done through stock exchanges.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-blue-300">📜 The Evolution of Stock Exchanges</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            Stock exchanges date back to at least <span class="text-yellow-400">1602 in Amsterdam</span> and have since evolved into some of the world's most complex institutions. 
+            They provide a platform for companies to raise money by selling their stocks and bonds to the public.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-blue-300">🌍 Major Stock Exchanges</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            The <span class="text-yellow-400">NYSE</span> and <span class="text-yellow-400">Nasdaq</span> are prime examples, serving as central locations for stock trading. 
+            Other major exchanges include the <span class="text-yellow-400">London Stock Exchange</span>, <span class="text-yellow-400">Tokyo Stock Exchange</span>, and <span class="text-yellow-400">Shanghai Stock Exchange</span>.
+            These exchanges follow national and local laws to ensure fair trading and transparency.
+        </p>
+    
+        <h3 class="text-2xl font-semibold mt-6 text-blue-300">💧 Liquidity & Cross-Listing</h3>
+        <p class="text-lg leading-relaxed text-gray-300">
+            Stock exchanges provide liquidity, allowing investors to buy or sell stocks quickly. 
+            Many exchanges also <span class="text-yellow-400">cross-list shares</span>, enabling companies to reach a wider pool of investors across different markets.
+        </p>
+    </section>
+     
+</body>
+</html>

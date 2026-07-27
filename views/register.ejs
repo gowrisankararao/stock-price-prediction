@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>🚀 Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200 flex items-center justify-center min-h-screen" 
+      style="background-image: url(https://img.freepik.com/free-vector/gradient-cryptocurrency-concept_23-2149215736.jpg?t=st=1745471946~exp=1745475546~hmac=49f0db345fae00b8934748205a2dfa73657cc784679332a1bcb198b2b908e9d4&w=1380);
+             background-repeat: no-repeat; background-size: cover;">
+    
+    <div class="backdrop-blur-lg bg-white/10 border border-white/30 p-8 rounded-2xl shadow-2xl w-full max-w-sm transform transition duration-500 hover:scale-105">
+        <h1 class="text-3xl font-extrabold mb-6 text-center text-white flex items-center justify-center gap-2">
+            🔐 Register
+        </h1>
+        
+        <form action="/register" method="POST" class="space-y-5">
+            <div>
+                <label for="username" class="block text-sm font-medium text-white">👤 Username</label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    id="username" 
+                    placeholder="Enter your username"
+                    required 
+                    class="mt-2 w-full px-4 py-2 border border-white/30 bg-white/20 text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all backdrop-blur-md placeholder-white/80"
+                >
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-white">🔑 Password</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    required 
+                    class="mt-2 w-full px-4 py-2 border border-white/30 bg-white/20 text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all backdrop-blur-md placeholder-white/80"
+                >
+            </div>
+            <button 
+                type="submit"
+                class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 flex items-center justify-center gap-2 transition-all transform hover:scale-105"
+            >
+                🚀 Register
+            </button>
+
+            <!-- Back to Login Button -->
+            <a 
+            href="/login"
+            class="w-full block text-center text-white border border-white/50 py-2 px-4 rounded-lg shadow-md 
+                   bg-white/10 backdrop-blur-md transition-all transform hover:scale-105 
+                   hover:bg-white/20 hover:border-white/70 hover:text-gray-900 hover:shadow-lg"
+        >
+            🔙 Back to Login
+        </a>
+        
+        </form>
+    </div>
+</body>
+</html>

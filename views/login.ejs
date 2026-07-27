@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>🚀 Login - StockTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Background & Glassmorphism Effect */
+        body {
+            background: url('https://img.freepik.com/free-photo/gold-bull-backgrounds-graphics-elements-related-financial-sector_23-2151807653.jpg?t=st=1745215050~exp=1745218650~hmac=93e0df5e0b4260fe7e85d57cf9a801cdb0aebc36e484b9ed3a0017ad58a306e6&w=1380') no-repeat center center/cover;
+            font-family: 'Poppins', sans-serif;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        /* Label Styling */
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fefefe;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        /* Input Field Styling */
+        input {
+            padding-left: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 12px;
+            height: 50px;
+            transition: all 0.3s ease-in-out;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #ffd700;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 18px;
+        }
+        /* Button Styling */
+        button {
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #5a51ff, #a049ff);
+        }
+         /* Floating Particles */
+         .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<div class="particles"></div>
+
+<body class="flex items-center justify-start min-h-screen px-4">
+    <div class="glass w-full max-w-md text-center ml-10">
+
+        <h1 class="text-4xl font-extrabold text-white mb-6 flex items-center justify-center gap-2">
+            <i class="fas fa-lock text-yellow-400"></i> Login
+        </h1>
+        <form action="/login" method="POST" class="space-y-6">
+            <!-- Username Field -->
+            <div class="relative flex flex-col space-y-2 text-left">
+                <label for="username">👨‍💼 Username</label>
+                <div class="relative">
+                    <i class="icon fas fa-user"></i>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        id="username" 
+                        placeholder="Enter your username"
+                        required 
+                        class="w-full pl-12 pr-4 py-3 bg-gray-200 text-gray-900 rounded-lg focus:outline-none font-extrabold"
+                    >
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="relative flex flex-col space-y-2 text-left">
+                <label for="password">🔑 Password</label>
+                <div class="relative">
+                    <i class="icon fas fa-lock"></i>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="Enter your password"
+                        required 
+                        class="w-full pl-12 pr-4 py-3 bg-gray-400 text-gray-900 rounded-lg focus:outline-none font-extrabold"
+                    >
+                    <i id="togglePassword" class="icon fas fa-eye cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+            </div>
+
+            <!-- Login Button -->
+            <button 
+                type="submit"
+                class="w-full py-3 px-4 text-white rounded-lg shadow-md transform hover:scale-105 transition duration-300 focus:outline-none"
+            >
+                🚀 Login
+            </button>
+        </form>
+        <p class="mt-4 text-white text-sm bg-black p-2 rounded">
+            Don't have an account? ✨ <a href="/register" class="text-yellow-400 hover:underline">Sign Up</a>
+        </p>
+        
+        
+    </div>
+
+    <script>
+        // Show/Hide Password Toggle
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            const passField = document.getElementById("password");
+            passField.type = passField.type === "password" ? "text" : "password";
+            this.classList.toggle("fa-eye-slash");
+        });
+         // Create floating particles dynamically
+         const particleContainer = document.querySelector('.particles');
+        for (let i = 0; i < 30; i++) {
+            let particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDuration = `${2 + Math.random() * 3}s`;
+            particleContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
