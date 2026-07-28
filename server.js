@@ -231,8 +231,15 @@ app.post('/chat', async (req, res) => {
     }
 });
 app.use(aboutRoutes);
-// Start the server
+// Start the server (only when running locally). When deployed to serverless platforms (e.g. Vercel),
+// export the Express app so the platform can handle requests.
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    // Export the Express app for serverless environments like Vercel.
+    module.exports = app;
+} else {
+    server.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}

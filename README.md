@@ -1,3 +1,40 @@
+# StockTrack (myproject)
+
+Simple stock-tracking web app with authentication, chat, and stock data endpoints.
+
+Local development
+1. Install dependencies:
+
+```powershell
+cd "D:\picturs\StockapiApp (3)\StockapiApp (2)\StockapiApp\StockapiApp\myproject"
+npm install
+```
+
+2. Create a `.env` file with any required secrets (optional for local testing):
+
+```
+JWT_SECRET=your_jwt_secret
+API_KEY=your_alphavantage_key
+HUGGINGFACE_API_KEY=your_hf_key
+```
+
+3. Start the app:
+
+```powershell
+npm start
+# Visit http://localhost:3000/login
+```
+
+Deployment via GitHub + Vercel (CI/CD)
+
+1. Push this repo to GitHub (create a repo and push main branch).
+2. In your GitHub repository settings -> Secrets, add `VERCEL_TOKEN` (create a token in Vercel) and ensure Vercel is linked to the repo.
+3. The included GitHub Actions workflow `.github/workflows/ci-cd.yml` will run on pushes to `main` and deploy to Vercel using the `VERCEL_TOKEN` secret.
+
+Notes & caveats
+- SQLite (`database.db`) is created locally and is ephemeral on Vercel. For persistent production data, use a hosted DB (Postgres, MongoDB, etc.).
+- Websockets (`socket.io`) are not supported in traditional serverless functions; consider a serverful host (Render, Railway, DigitalOcean) or a hosted realtime service for full websocket support.
+- The repository includes `vercel.json` and `server.js` exports the Express `app` so Vercel can handle serverless routing. If you prefer a serverful deployment, remove the serverless export and run the server normally.
 # StockapiApp - Stock Price Prediction with AI
 
 A modern web application that predicts stock prices using artificial intelligence, built with Node.js, Express, Socket.io, and integrated with multiple AI providers (Hugging Face, Google Generative AI).
