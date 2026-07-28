@@ -17,6 +17,7 @@ const predictRoutes = require('./routes/predictRoutes');
 dotenv.config();
 const hfApiKey = process.env.HUGGINGFACE_API_KEY || process.env.HF_API_KEY || process.env.RAPIDAPI_KEY || null;
 
+const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -25,9 +26,11 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 const API_KEY = process.env.API_KEY || process.env.ALPHAVANTAGE_API_KEY || process.env.ALPHA_API_KEY || null;
 
 app.set('view engine', 'ejs');
+// Ensure views and static assets resolve correctly in serverless environments
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 
