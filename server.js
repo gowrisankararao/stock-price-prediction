@@ -168,7 +168,11 @@ app.get('/api/stock/:symbol', async (req, res) => {
         }
     };
 
+    // If no API key is configured, return sample/demo data when available
     if (!API_KEY) {
+        if (sampleTimeSeries[symbol]) {
+            return res.json({ 'Meta Data': { '2. Symbol': symbol }, 'Time Series (Daily)': sampleTimeSeries[symbol] });
+        }
         return res.status(400).json({ error: 'Live stock data requires an AlphaVantage API key. Set API_KEY or ALPHAVANTAGE_API_KEY in .env.' });
     }
 
